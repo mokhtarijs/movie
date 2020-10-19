@@ -1,0 +1,358 @@
+<html>
+
+<head>
+  <meta charset=utf-8>
+  <meta name=viewport content="width=device-width, initial-scale=1">
+
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- <script type="text/javascript" src="./class_react/movise.js"></script>
+  <script type="text/javascript" src="./class_react/search.js"></script>
+  <script type="text/javascript" src="./class_react/signup.js"></script> -->
+  <!-- <style>
+    body {
+      background-image: url('back.JPG');
+    }
+    </style> -->
+</head>
+
+
+
+<body style=" background-color: #aaaaaa;">
+  <center>
+    <div id="root"></div> <!-- header -->
+    <br>
+    <div id="root1"></div> <!-- forms -->
+    <br>
+    <div id="root2"></div> <!-- responses -->
+  </center>
+  <script type="text/babel">
+
+    class Football extends React.Component {
+      //Signup
+      shoot() {
+
+        class Car extends React.Component {
+
+          signup() {
+            class Signup extends React.Component {
+              getData(user, pass, phone) {
+                var xhr = new XMLHttpRequest();
+
+                xhr.onload = () => {
+                  if (xhr.status >= 200 && xhr.status < 300) {
+                    const response = JSON.parse(xhr.responseText);
+                    console.log(response);
+
+                  }
+                };
+
+                xhr.open("POST", "http://localhost:81/Signup", true);
+                xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+                xhr.send(JSON.stringify({ user: user, pass: pass, phone: phone }));
+              }
+
+              render() {
+                return (
+
+                  <div id="div">
+                    {this.getData(document.getElementById('user').value,
+                      document.getElementById('pass').value,
+                      document.getElementById('phone').value)}
+                  </div>
+                );
+              }
+            }
+
+            ReactDOM.render(<Signup />, document.getElementById('root2'));
+          }
+
+          render() {
+            return (
+              <div>
+                <h1>Enter Your Doc</h1>
+                <div>
+                  <input type="text" id="user" placeholder="Plase Enter User"></input><br></br>
+                  <input type="text" id="pass" placeholder="Plase Enter Pass"></input><br></br>
+                  <input type="text" id="phone" placeholder="Plase Enter Phone"></input><br></br>
+                  <button class="btn" onClick={this.signup}>send</button>
+                </div>
+              </div>
+            );
+          }
+        }
+
+        ReactDOM.render(<Car />, document.getElementById('root1'));
+        ReactDOM.render(<p></p>, document.getElementById('root2'));
+      }
+
+
+      //Search
+      shoot1() {
+
+
+        class Carr extends React.Component {
+
+          search() {
+            class Search extends React.Component {
+
+              getData(partname, downyear, upyear, downrate, uprate, minviewers) {
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.onload = () => {
+                  if (xhr.status >= 200 && xhr.status < 300) {
+                    const response = JSON.parse(xhr.responseText);
+                    console.log(response);
+
+                    for (let index = 0; index < response.length; index++) {
+                      var button = document.createElement("BUTTON");
+                      var div = document.createElement("DIV");
+                      var img = document.createElement("IMG");
+                      var ranking = document.createElement("H3");
+                      var name = document.createElement("H3");
+                      var year = document.createElement("H3");
+                      var rate = document.createElement("H3");
+                      var tr = document.createElement("TR");
+                      document.getElementById('div').appendChild(div);
+                      div.appendChild(button);
+                      tr.appendChild(ranking);
+                      tr.appendChild(name);
+                      tr.appendChild(year);
+                      tr.appendChild(rate);
+                      button.appendChild(tr);
+                      button.appendChild(img);
+                      img.src = "data:image/jpg;base64," + response[index].base64;
+                      img.style.cssText = "width:100px;float:left;"
+                      tr.style.cssText = "float:right;text-align: center;"
+                      button.style.cssText = "width:100%;  background-color: #cccccc;"
+                      div.style.cssText = "font-size:15px;border:2px solid black;color:black;width:450px;float:right;float:left;float:bottom;margin:20px'text-align: center;"
+                   
+                      ranking.innerHTML = "ranking:" + (index+1);
+                      name.innerHTML = response[index].filmtitle;
+                      year.innerHTML = "year:" + response[index].year;
+                      rate.innerHTML = "rate:" + response[index].rate;
+                      // button.appendChild(img);
+                      button.d = response[index];
+                      console.log(button.d);
+                      button.d.img = "data:image/jpg;base64," + response[index].base64;
+                      button.onclick = function form() {
+                        ReactDOM.render(
+                          <div><div><img src={this.d.img}></img></div ><h1>filmtitle:{this.d.filmtitle}<br></br>year:{this.d.year}<br></br>rate:{this.d.rate}
+                            <br></br></h1>
+                            <input type="hidden" id="id" value={this.d.id} ></input><br></br>
+                            <input type="text" id="rate" placeholder="Please Enter rate" ></input><br></br>
+                            <input type="text" id="user" placeholder="Please Enter user" ></input><br></br>
+                            <input type="text" id="pass" placeholder="Please Enter pass" ></input><br></br>
+                            <button class="btn" onClick={function send() {
+                              // var xhrr = new XMLHttpRequest();
+
+                              // xhrr.onload = () => {
+                              //   if (xhrr.status >= 200 && xhrr.status < 300) {
+                              //     const response = JSON.parse(xhrr.responseText);
+                              //     console.log(response);
+                              //   };
+                              // }
+                              xhr.open("POST", "http://localhost:81/Rate", true);
+                              xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+                              console.log("dsfkrgkjrugjfvj" + document.getElementById('id').value);
+                              xhr.send(JSON.stringify({ user: document.getElementById('user').value, pass: document.getElementById('pass').value, rate: document.getElementById('rate').value, movieid: document.getElementById('id').value }));
+                            }
+                            }>send</button><br></br><br></br>
+                          </div>, document.getElementById('root1'));
+                      }
+                    }
+
+                    // var img = this.d.img;
+                    // var filmtitle = this.d.filmtitle;
+                    // var year = this.d.year;
+                    // var rate = this.d.rate;
+                    // var id = this.d.id;
+
+
+
+                  }
+                };
+
+                xhr.open("POST", "http://localhost:81/Movies", true);
+                xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+                xhr.send(JSON.stringify({ partname: partname, downyear: downyear, upyear: upyear, downrate: downrate, uprate: uprate, minviewers: minviewers }));
+              }
+
+              render() {
+                return (
+
+                  <div id="div">
+                    {this.getData(document.getElementById('partname').value,
+                      document.getElementById('downyear').value,
+                      document.getElementById('upyear').value,
+                      document.getElementById('downrate').value,
+                      document.getElementById('uprate').value,
+                      document.getElementById('minviewers').value)}
+                  </div>
+                );
+              }
+            }
+
+
+
+            ReactDOM.render(<Search />, document.getElementById('root2'));
+          }
+          render() {
+
+            return (
+
+              <div>
+                <h1>Enter Your Doc</h1>
+                <div >
+                  <input type="text" id="partname" placeholder="Please Enter Partname"></input><br></br>
+                  <input type="text" id="downyear" placeholder="Plase Enter Downyear"></input><br></br>
+                  <input type="text" id="upyear" placeholder="Plase Enter Upyear"></input><br></br>
+                  <input type="text" id="downrate" placeholder="Plase Enter Downrate"></input><br></br>
+                  <input type="text" id="uprate" placeholder="Plase Enter Uprate"></input><br></br>
+                  <input type="text" id="minviewers" placeholder="Plase Enter MinViewers" value={0} ></input><br></br>
+                  <button class="btn" onClick={this.search}>send</button>
+                </div>
+                <br></br>
+              </div>
+            );
+          }
+        }
+
+        ReactDOM.render(<Carr />, document.getElementById('root1'));
+        ReactDOM.render(<p></p>, document.getElementById('root2'));
+      }
+
+
+      //Movise
+      shoot2() {
+
+        class Carrr extends React.Component {
+          movise() {
+            class Movise extends React.Component {
+              getData(filmtitle, year, user, pass, img) {
+
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+
+                  var base = event.target.result
+                  console.log(base)
+
+                  var xhr = new XMLHttpRequest();
+
+
+
+                  xhr.open("POST", "http://localhost:81/Movise", true);
+                  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+                  xhr.send(JSON.stringify({ filmtitle: filmtitle, year: year, user: user, pass: pass, img: base }));
+                };
+                reader.readAsDataURL(img[0]);
+              }
+
+              render() {
+
+
+                return (
+
+                  <div id="div">
+                    {this.getData(document.getElementById('filmtitle').value,
+                      document.getElementById('year').value,
+                      document.getElementById('user').value,
+                      document.getElementById('pass').value,
+                      document.getElementById('photo').files)}
+                  </div>
+                );
+              }
+            }
+
+            ReactDOM.render(<Movise />, document.getElementById('root2'));
+          }
+
+
+          render() {
+            return (
+              <div>
+                <h1>Enter Your Doc</h1>
+                <div>
+                  <input type="text" id="filmtitle" placeholder="Plase Enter Filmtitle"></input><br></br>
+                  <input type="text" id="year" placeholder="Plase Enter Year"></input><br></br>
+                  <input type="text" id="user" placeholder="Plase Enter User"></input><br></br>
+                  <input type="text" id="pass" placeholder="Plase Enter Pass"></input><br></br>
+                  <input type="file" id="photo"></input><br></br>
+                  <button onClick={this.movise}>send</button>
+                </div>
+              </div>
+            );
+          }
+        }
+
+        ReactDOM.render(<Carrr />, document.getElementById('root1'));
+        ReactDOM.render(<p></p>, document.getElementById('root2'));
+      }
+
+      render() {
+        return (
+          <div>
+            <button onClick={this.shoot}>signup</button>
+            <button onClick={this.shoot1}>search</button>
+            <button onClick={this.shoot2}>movise</button>
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(<Football />, document.getElementById('root'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+
+</html>
